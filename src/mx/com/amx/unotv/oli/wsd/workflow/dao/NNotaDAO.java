@@ -4,6 +4,7 @@
 package mx.com.amx.unotv.oli.wsd.workflow.dao;
 
 import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -57,7 +58,7 @@ public class NNotaDAO {
 		query.append(" DELETE FROM OLI_MX_N_NOTA WHERE FC_ID_CONTENIDO ='" + id + "'");
 		try {
 
-			jdbcTemplate.query(query.toString(), new BeanPropertyRowMapper<NNota>(NNota.class));
+			jdbcTemplate.execute(query.toString());
 
 		} catch (Exception e) {
 
@@ -102,7 +103,31 @@ public class NNotaDAO {
 		int rows = 0;
 
 		try {
-			rows = jdbcTemplate.update(" ", nota.getFcIdContenido());
+			rows = jdbcTemplate.update(" UPDATE oli_mx_n_nota SET  "+
+					" FC_ID_CATEGORIA  = ? , "+
+					" FC_TIPO_NOTA  = ? , "+
+					" FC_ID_CLASS_VIDEO  = ? , "+
+					" FC_TITULO  = ? , "+
+					" FC_DESCRIPCION  = ? , "+
+					" FC_FRIENDLY_URL  = ? , "+
+					" FC_AUTOR  = ? , "+
+					" FC_URL_AUTOR  = ? , "+
+					" FC_IMAGEN  = ? , "+
+					" FC_PIE_IMAGEN  = ? , "+
+					" CL_GALERIA  = ? , "+
+					" CL_RTF_CONTENIDO  = ? , "+
+					" FC_ID_YOUTUBE  = ? , "+
+					" FC_ID_CONTENT_OOYALA  = ? , "+
+					" FC_ID_PLAYER_OOYALA  = ? , "+
+					" FC_KEYWORDS  = ? , "+
+					" FD_FECHA_MODIFICACION  = ? , "+
+					" FI_BAN_OTROS  = ?  WHERE FC_ID_CONTENIDO = ? "
+					,nota.getFcIdCategoria(),nota.getFcTipoNota(),nota.getFcIdClassVideo()
+					,nota.getFcTitulo(),nota.getFcDescripcion(),nota.getFcFriendlyUrl()
+					,nota.getFcAutor(),nota.getFcUrlAutor(),nota.getFcImagen()
+					,nota.getFcPieImagen(),nota.getClGaleria(),nota.getClRtfContenido()
+					,nota.getFcIdYoutube(),nota.getFcIdContentOoyala(),nota.getFcIdPlayerOoyala()
+					,nota.getFcKeywords(),dateFormat.format(new Date()) ,nota.getFiBanOtros(),nota.getFcIdContenido());
 
 		} catch (Exception e) {
 
@@ -119,7 +144,33 @@ public class NNotaDAO {
 		int rows = 0;
 
 		try {
-			rows = jdbcTemplate.update(" ", nota.getFcIdContenido());
+			rows = jdbcTemplate.update(" INSERT INTO oli_mx_n_nota ( FC_ID_CONTENIDO, "+
+					" FC_ID_CATEGORIA, "+
+					" FC_TIPO_NOTA, "+
+					" FC_ID_CLASS_VIDEO, "+
+					" FC_TITULO, "+
+					" FC_DESCRIPCION, "+
+					" FC_FRIENDLY_URL, "+
+					" FC_AUTOR, "+
+					" FC_URL_AUTOR, "+
+					" FC_IMAGEN, "+
+					" FC_PIE_IMAGEN, "+
+					" CL_GALERIA, "+
+					" CL_RTF_CONTENIDO, "+
+					" FC_ID_YOUTUBE, "+
+					" FC_ID_CONTENT_OOYALA, "+
+					" FC_ID_PLAYER_OOYALA, "+
+					" FC_KEYWORDS, "+
+					" FD_FECHA_PUBLICACION, "+
+					" FD_FECHA_MODIFICACION, "+
+					" FI_BAN_OTROS) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?) "
+					, nota.getFcIdContenido(),nota.getFcIdCategoria(),nota.getFcTipoNota()
+					, nota.getFcIdClassVideo(),nota.getFcTitulo() , nota.getFcDescripcion()
+					, nota.getFcFriendlyUrl(),nota.getFcAutor(),nota.getFcUrlAutor()
+					, nota.getFcImagen(), nota.getFcPieImagen(),nota.getClGaleria()
+					, nota.getClRtfContenido(), nota.getFcIdYoutube(), nota.getFcIdContentOoyala()
+					, nota.getFcIdPlayerOoyala(),nota.getFcKeywords(),dateFormat.format(new Date()),
+					dateFormat.format(new Date()),nota.getFiBanOtros());
 
 		} catch (Exception e) {
 

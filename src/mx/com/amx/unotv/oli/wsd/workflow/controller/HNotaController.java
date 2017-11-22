@@ -24,7 +24,7 @@ import mx.com.amx.unotv.oli.wsd.workflow.response.ListResponse;
  */
 
 @Controller
-@RequestMapping("nNota")
+@RequestMapping("hNota")
 public class HNotaController {
 	private static Logger logger = Logger.getLogger(HNotaController.class);
 
@@ -89,7 +89,7 @@ public class HNotaController {
 		
 	}
 
-	@RequestMapping(value = "/findById/{idContenido}", method = RequestMethod.POST, headers = "Accept=application/json; charset=utf-8")
+	@RequestMapping(value = "/{idContenido}", method = RequestMethod.POST, headers = "Accept=application/json; charset=utf-8")
 	@ResponseBody
 	public HNota findById(@PathVariable String idContenido) throws ControllerException {
 		logger.info("--- HNotaController-----");
@@ -125,4 +125,10 @@ public class HNotaController {
 		return res;
 	}
 	
+	@RequestMapping(value = "/nota", method = RequestMethod.POST, headers = "Accept=application/json; charset=utf-8")
+	@ResponseBody
+	public HNota nota() throws ControllerException {
+		
+		return new HNota();
+	}
 }

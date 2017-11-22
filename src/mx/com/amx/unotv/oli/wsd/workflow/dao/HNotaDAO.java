@@ -57,7 +57,7 @@ public class HNotaDAO  {
 		query.append(" DELETE FROM OLI_MX_H_NOTA WHERE FC_ID_CONTENIDO ='" + id + "'");
 		try {
 
-			jdbcTemplate.query(query.toString(), new BeanPropertyRowMapper<HNota>(HNota.class));
+			jdbcTemplate.execute(query.toString());
 
 		} catch (Exception e) {
 
@@ -122,10 +122,11 @@ public class HNotaDAO  {
 					" FC_ID_PLAYER_OOYALA = ? ,  "+
 					" FC_KEYWORDS = ? ,  "+
 					" FD_FECHA_MODIFICACION = ? ,  "+
-					" FI_BAN_OTROS = ?  WHERE FC_ID_CONTENIDO = ?   "
+					" FI_BAN_OTROS = ?  "
+					+ " WHERE FC_ID_CONTENIDO = ?   "
 					,nota.getFcIdCategoria(),nota.getFcIdTipoNota(),nota.getFcIdClassVideo()
 					,nota.getFcTitulo(),nota.getFcDescripcion(),nota.getFcFriendlyUrl()
-					,nota.getFcAutor(),nota.getFcImagen(),nota.getFcPieImagen()
+					,nota.getFcAutor(),nota.getFcUrlAutor(),nota.getFcImagen(),nota.getFcPieImagen()
 					,nota.getClGaleria(),nota.getClRtfContenido(),nota.getFcIdYoutube()
 					,nota.getFcIdContentOoyala(),nota.getFcIdPlayerOoyala(),nota.getFcKeywords()
 					,dateFormat.format(new Date()),nota.getFiBanOtros(),nota.getFcIdContenido());
@@ -167,7 +168,8 @@ public class HNotaDAO  {
 					" FC_KEYWORDS , "+
 					" FD_FECHA_PUBLICACION , "+
 					" FD_FECHA_MODIFICACION , "+
-					" FI_BAN_OTROS ) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?) "
+					" FI_BAN_OTROS ) "
+					+ " VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?) "
 					,nota.getFcIdContenido(),nota.getFcIdCategoria(),nota.getFcIdTipoNota(),nota.getFcIdClassVideo()
 					,nota.getFcTitulo(),nota.getFcDescripcion(),nota.getFcFriendlyUrl(),nota.getFcAutor(),nota.getFcUrlAutor()
 					,nota.getFcImagen(),nota.getFcPieImagen(),nota.getClGaleria(),nota.getClRtfContenido(),nota.getFcIdYoutube()

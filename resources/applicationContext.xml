@@ -13,13 +13,7 @@
 
 	<context:component-scan base-package="mx.com.amx.unotv.oli.wsd.workflow" />
 
-	<!-- <bean id="seccionBO" class="mx.com.amx.unotv.adminservice.bo.SeccionBO"></bean> -->
-	
-
-
-
-
-	<bean
+<bean
 		class="org.springframework.web.servlet.view.ContentNegotiatingViewResolver">
 		<property name="contentNegotiationManager" ref="cnManager" />
 	</bean>

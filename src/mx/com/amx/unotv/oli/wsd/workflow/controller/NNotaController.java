@@ -94,7 +94,7 @@ public class NNotaController {
 		
 	}
 
-	@RequestMapping(value = "/findById/{idContenido}", method = RequestMethod.POST, headers = "Accept=application/json; charset=utf-8")
+	@RequestMapping(value = "/{idContenido}", method = RequestMethod.POST, headers = "Accept=application/json; charset=utf-8")
 	@ResponseBody
 	public NNota findById(@PathVariable String idContenido) throws ControllerException {
 		logger.info("--- NNotaController-----");
@@ -132,4 +132,11 @@ public class NNotaController {
 		return res;
 	}
 
+	
+	@RequestMapping(value = "/nota", method = RequestMethod.POST, headers = "Accept=application/json; charset=utf-8")
+	@ResponseBody
+	public NNota nota() throws ControllerException {
+		
+		return new NNota();
+	}
 }
