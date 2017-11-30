@@ -5,22 +5,25 @@ package mx.com.amx.unotv.oli.wsd.workflow.response;
 
 import java.util.List;
 
+import mx.com.amx.unotv.oli.wsd.workflow.model.HNota;
+
 /**
  * @author Jesus A. Macias Benitez
- * @param <T>
  *
  */
-public class ListResponse<T> {
-	
-	List<T> lista;
+public class HNotaList {
 
-	public List<T> getLista() {
+	
+	List<HNota> lista ;
+
+	public List<HNota> getLista() {
 		return lista;
 	}
 
-	public void setLista(List<T> lista) {
+	public void setLista(List<HNota> lista) {
 		this.lista = lista;
 	}
+	
 	
 	
 	

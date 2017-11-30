@@ -50,11 +50,11 @@ public class HNotaDAO  {
 		return lista;
 	}
 	
-	public void delete(String id) throws HNotaDAOException {
+	public void delete(String friendlyURL) throws HNotaDAOException {
 		logger.info("--- Delete  [HNotaDAO] ---- ");
 
 		StringBuilder query = new StringBuilder();
-		query.append(" DELETE FROM OLI_MX_H_NOTA WHERE FC_ID_CONTENIDO ='" + id + "'");
+		query.append(" DELETE FROM OLI_MX_H_NOTA WHERE FC_FRIENDLY_URL ='" + friendlyURL + "'");
 		try {
 
 			jdbcTemplate.execute(query.toString());
@@ -70,13 +70,13 @@ public class HNotaDAO  {
 	}
 
 	
-	public HNota findById(String id) throws HNotaDAOException {
+	public HNota findByFriendlyURL(String friendlyURL) throws HNotaDAOException {
 		logger.info("--- findById  [HNotaDAO] ---- ");
 
 		List<HNota> lista = null;
 
 		StringBuilder query = new StringBuilder();
-		query.append(" SELECT * FROM OLI_MX_H_NOTA WHERE FC_ID_CONTENIDO ='" + id + "'");
+		query.append(" SELECT * FROM OLI_MX_H_NOTA WHERE FC_FRIENDLY_URL ='" + friendlyURL + "'");
 
 		try {
 
@@ -110,7 +110,6 @@ public class HNotaDAO  {
 					" FC_ID_CLASS_VIDEO = ? ,  "+
 					" FC_TITULO = ? ,  "+
 					" FC_DESCRIPCION = ? ,  "+
-					" FC_FRIENDLY_URL = ? ,  "+
 					" FC_AUTOR = ? ,  "+
 					" FC_URL_AUTOR = ? ,  "+
 					" FC_IMAGEN = ? ,  "+
@@ -123,13 +122,13 @@ public class HNotaDAO  {
 					" FC_KEYWORDS = ? ,  "+
 					" FD_FECHA_MODIFICACION = ? ,  "+
 					" FI_BAN_OTROS = ?  "
-					+ " WHERE FC_ID_CONTENIDO = ?   "
+					+ " WHERE FC_FRIENDLY_URL = ?   "
 					,nota.getFcIdCategoria(),nota.getFcIdTipoNota(),nota.getFcIdClassVideo()
-					,nota.getFcTitulo(),nota.getFcDescripcion(),nota.getFcFriendlyUrl()
+					,nota.getFcTitulo(),nota.getFcDescripcion()
 					,nota.getFcAutor(),nota.getFcUrlAutor(),nota.getFcImagen(),nota.getFcPieImagen()
 					,nota.getClGaleria(),nota.getClRtfContenido(),nota.getFcIdYoutube()
 					,nota.getFcIdContentOoyala(),nota.getFcIdPlayerOoyala(),nota.getFcKeywords()
-					,dateFormat.format(new Date()),nota.getFiBanOtros(),nota.getFcIdContenido());
+					,dateFormat.format(new Date()),nota.getFiBanOtros(),nota.getFcFriendlyUrl());
 
 		} catch (Exception e) {
 

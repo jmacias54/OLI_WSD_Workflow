@@ -3,6 +3,7 @@
  */
 package mx.com.amx.unotv.oli.wsd.workflow.controller;
 
+import java.util.Collections;
 import java.util.List;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,7 +16,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import mx.com.amx.unotv.oli.wsd.workflow.controller.exception.ControllerException;
 import mx.com.amx.unotv.oli.wsd.workflow.dao.NNotaDAO;
 import mx.com.amx.unotv.oli.wsd.workflow.model.NNota;
-import mx.com.amx.unotv.oli.wsd.workflow.response.ListResponse;
+import mx.com.amx.unotv.oli.wsd.workflow.response.NNotaList;
 
 
 /**
@@ -39,17 +40,21 @@ public class NNotaController {
 	
 	@RequestMapping(value = "/", method = RequestMethod.POST, headers = "Accept=application/json; charset=utf-8")
 	@ResponseBody
-	public ListResponse<NNota> findAll() throws ControllerException {
+	public NNotaList findAll() throws ControllerException {
 		logger.info("--- NNotaController-----");
 		logger.info("--- findAll -----");
-		ListResponse<NNota> response = null;
+		NNotaList response = null;
 		List<NNota> lista = null;
 		
 		try {
 
 			lista = nNotaDAO.findAll();
-			response = new ListResponse<NNota>();
-			response.setLista(lista);
+			response = new NNotaList();
+			if(lista != null && !lista.isEmpty()) {
+				response.setLista(lista);
+			}else {
+				response.setLista(Collections.<NNota>emptyList());
+			}
 
 		} catch (Exception e) {
 			logger.error(" -- Error  findAll [ NNotaController ]:", e);
@@ -65,6 +70,7 @@ public class NNotaController {
 	public int insert(@RequestBody NNota nota) throws ControllerException {
 		logger.info("--- NNotaController-----");
 		logger.info("--- insert -----");
+		logger.debug("--- DTO :"+nota.toString());
 		int res=0;
 		try {
 
@@ -78,14 +84,14 @@ public class NNotaController {
 		return res;
 	}
 
-	@RequestMapping(value = "/delete/{idContenido}", method = RequestMethod.POST, headers = "Accept=application/json; charset=utf-8")
+	@RequestMapping(value = "/delete/{friendlyURL}", method = RequestMethod.POST, headers = "Accept=application/json; charset=utf-8")
 	@ResponseBody
-	public void delete(@PathVariable String idContenido) throws ControllerException {
+	public void delete(@PathVariable String friendlyURL) throws ControllerException {
 		logger.info("--- NNotaController-----");
 		logger.info("--- delete -----");
 		try {
 
-			nNotaDAO.delete(idContenido);
+			nNotaDAO.delete(friendlyURL);
 
 		} catch (Exception e) {
 			logger.error(" -- Error  delete [ NNotaController ]:", e);
@@ -94,19 +100,19 @@ public class NNotaController {
 		
 	}
 
-	@RequestMapping(value = "/{idContenido}", method = RequestMethod.POST, headers = "Accept=application/json; charset=utf-8")
+	@RequestMapping(value = "/{friendlyURL}", method = RequestMethod.POST, headers = "Accept=application/json; charset=utf-8")
 	@ResponseBody
-	public NNota findById(@PathVariable String idContenido) throws ControllerException {
+	public NNota findByFriendlyURL(@PathVariable String friendlyURL) throws ControllerException {
 		logger.info("--- NNotaController-----");
-		logger.info("--- findById -----");
+		logger.info("--- findByFriendlyURL -----");
 		
 		NNota nota = null;
 		try {
 
-			nota = nNotaDAO.findById(idContenido);
+			nota = nNotaDAO.findByFriendlyURL(friendlyURL);
 
 		} catch (Exception e) {
-			logger.error(" -- Error  findById [ NNotaController ]:", e);
+			logger.error(" -- Error  findByFriendlyURL [ NNotaController ]:", e);
 			throw new ControllerException(e.getMessage());
 		}
 		
@@ -118,6 +124,7 @@ public class NNotaController {
 	public int update(@RequestBody NNota nota) throws ControllerException {
 		logger.info("--- NNotaController-----");
 		logger.info("--- update -----");
+		logger.debug("--- DTO :"+nota.toString());
 		
 		int res=0;
 		try {

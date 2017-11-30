@@ -51,11 +51,11 @@ public class NNotaDAO {
 	}
 
 	
-	public void delete(String id) throws NNotaDAOException {
+	public void delete(String friendlyURL) throws NNotaDAOException {
 		logger.info("--- Delete  [HNotaDAO] ---- ");
 
 		StringBuilder query = new StringBuilder();
-		query.append(" DELETE FROM OLI_MX_N_NOTA WHERE FC_ID_CONTENIDO ='" + id + "'");
+		query.append(" DELETE FROM OLI_MX_N_NOTA WHERE FC_FRIENDLY_URL ='" + friendlyURL + "'");
 		try {
 
 			jdbcTemplate.execute(query.toString());
@@ -71,13 +71,13 @@ public class NNotaDAO {
 	}
 
 	
-	public NNota findById(String id) throws NNotaDAOException {
-		logger.info("--- findById  [NNotaDAO] ---- ");
+	public NNota findByFriendlyURL(String friendlyURL) throws NNotaDAOException {
+		logger.info("--- findByFriendlyURL  [NNotaDAO] ---- ");
 
 		List<NNota> lista = null;
 
 		StringBuilder query = new StringBuilder();
-		query.append(" SELECT * FROM OLI_MX_N_NOTA WHERE FC_ID_CONTENIDO ='" + id + "'");
+		query.append(" SELECT * FROM OLI_MX_N_NOTA WHERE FC_FRIENDLY_URL ='" + friendlyURL + "'");
 
 		try {
 
@@ -85,7 +85,7 @@ public class NNotaDAO {
 
 		} catch (Exception e) {
 
-			logger.error(" Error findById [ NNotaDAO ] ", e);
+			logger.error(" Error findByFriendlyURL [ NNotaDAO ] ", e);
 
 			throw new NNotaDAOException(e.getMessage());
 
@@ -109,7 +109,6 @@ public class NNotaDAO {
 					" FC_ID_CLASS_VIDEO  = ? , "+
 					" FC_TITULO  = ? , "+
 					" FC_DESCRIPCION  = ? , "+
-					" FC_FRIENDLY_URL  = ? , "+
 					" FC_AUTOR  = ? , "+
 					" FC_URL_AUTOR  = ? , "+
 					" FC_IMAGEN  = ? , "+
@@ -121,13 +120,13 @@ public class NNotaDAO {
 					" FC_ID_PLAYER_OOYALA  = ? , "+
 					" FC_KEYWORDS  = ? , "+
 					" FD_FECHA_MODIFICACION  = ? , "+
-					" FI_BAN_OTROS  = ?  WHERE FC_ID_CONTENIDO = ? "
+					" FI_BAN_OTROS  = ?  WHERE FC_FRIENDLY_URL = ? "
 					,nota.getFcIdCategoria(),nota.getFcTipoNota(),nota.getFcIdClassVideo()
-					,nota.getFcTitulo(),nota.getFcDescripcion(),nota.getFcFriendlyUrl()
+					,nota.getFcTitulo(),nota.getFcDescripcion()
 					,nota.getFcAutor(),nota.getFcUrlAutor(),nota.getFcImagen()
 					,nota.getFcPieImagen(),nota.getClGaleria(),nota.getClRtfContenido()
 					,nota.getFcIdYoutube(),nota.getFcIdContentOoyala(),nota.getFcIdPlayerOoyala()
-					,nota.getFcKeywords(),dateFormat.format(new Date()) ,nota.getFiBanOtros(),nota.getFcIdContenido());
+					,nota.getFcKeywords(),dateFormat.format(new Date()) ,nota.getFiBanOtros(),nota.getFcFriendlyUrl());
 
 		} catch (Exception e) {
 

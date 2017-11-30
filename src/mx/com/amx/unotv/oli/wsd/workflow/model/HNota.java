@@ -195,4 +195,20 @@ public class HNota implements Serializable {
 		this.fiBanOtros = fiBanOtros;
 	}
 
+	@Override
+	public String toString() {
+		return "HNota [fcIdContenido=" + fcIdContenido + ", clGaleria=" + clGaleria + ", clRtfContenido="
+				+ clRtfContenido + ", fcAutor=" + fcAutor + ", fcDescripcion=" + fcDescripcion + ", fcFriendlyUrl="
+				+ fcFriendlyUrl + ", fcIdCategoria=" + fcIdCategoria + ", fcIdClassVideo=" + fcIdClassVideo
+				+ ", fcIdContentOoyala=" + fcIdContentOoyala + ", fcIdPlayerOoyala=" + fcIdPlayerOoyala
+				+ ", fcIdTipoNota=" + fcIdTipoNota + ", fcIdYoutube=" + fcIdYoutube + ", fcImagen=" + fcImagen
+				+ ", fcKeywords=" + fcKeywords + ", fcPieImagen=" + fcPieImagen + ", fcTitulo=" + fcTitulo
+				+ ", fcUrlAutor=" + fcUrlAutor + ", fdFechaModificacion=" + fdFechaModificacion
+				+ ", fdFechaPublicacion=" + fdFechaPublicacion + ", fiBanOtros=" + fiBanOtros + "]";
+	}
+	
+	
+	
+	
+
 }
