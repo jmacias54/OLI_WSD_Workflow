@@ -30,7 +30,7 @@ public class HNota implements Serializable {
 	private String fcUrlAutor;
 	private String fdFechaModificacion;
 	private String fdFechaPublicacion;
-	private Integer fiBanOtros;
+	private String fiBanOtros;
 
 	public HNota() {
 	}
@@ -187,11 +187,11 @@ public class HNota implements Serializable {
 		this.fdFechaPublicacion = fdFechaPublicacion;
 	}
 
-	public Integer getFiBanOtros() {
+	public String getFiBanOtros() {
 		return this.fiBanOtros;
 	}
 
-	public void setFiBanOtros(Integer fiBanOtros) {
+	public void setFiBanOtros(String fiBanOtros) {
 		this.fiBanOtros = fiBanOtros;
 	}
 
